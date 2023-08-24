@@ -6,12 +6,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 
 @Composable
-fun FavouriteNewsScreen(navController: NavController){
-    ScreenGenerate(navController = navController)
+fun FavouriteNewsScreen(navController: NavController,apiKey:String){
+    ScreenGenerate(navController = navController,apiKey)
 }
 
 @Composable
-private fun ScreenGenerate(navController: NavController){
+private fun ScreenGenerate(navController: NavController,apiKey:String){
 
 }
 
@@ -19,5 +19,5 @@ private fun ScreenGenerate(navController: NavController){
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun Preview(){
-    ScreenGenerate(navController = NavController(LocalContext.current))
+    ScreenGenerate(navController = NavController(LocalContext.current),"")
 }
