@@ -41,7 +41,9 @@ import com.example.newsapp.View.FavouriteNewsScreen
 import com.example.newsapp.View.SearchNewsScreen
 import com.example.newsapp.ui.theme.NewsAppTheme
 import com.google.firebase.database.FirebaseDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

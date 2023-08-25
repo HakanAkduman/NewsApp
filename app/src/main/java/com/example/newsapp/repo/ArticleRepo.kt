@@ -9,6 +9,7 @@ import com.example.newsapp.database.ArticleDao
 import retrofit2.Response
 import javax.inject.Inject
 
+
 class ArticleRepo @Inject constructor(
     private val articleDao: ArticleDao,
     private val articleApi: ArticleApi
@@ -25,15 +26,14 @@ class ArticleRepo @Inject constructor(
         articleDao.deleteArticle(article)
     }
 
-    override suspend fun getBreakingNews(API_KEY: String): Resource<NewsResponse> {
-        return try {
+    override suspend fun getBreakingNews(API_KEY: String): Response<NewsResponse> {
+        return articleApi.getBreakingNews(apiKey = API_KEY)
 
-        }catch (e:Exception){
-            
-        }
     }
 
-    override suspend fun searchForNews(API_KEY: String,searchQuery:String): Resource<NewsResponse> {
-        TODO("Not yet implemented")
+    override suspend fun searchForNews(API_KEY: String,searchQuery:String): Response<NewsResponse> {
+        return articleApi.searchForNews(apiKey = API_KEY, searchQuery = searchQuery)
+
+
     }
 }

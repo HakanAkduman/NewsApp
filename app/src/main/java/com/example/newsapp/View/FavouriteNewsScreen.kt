@@ -7,11 +7,11 @@ import androidx.navigation.NavController
 
 @Composable
 fun FavouriteNewsScreen(navController: NavController,apiKey:String){
-    ScreenGenerate(navController = navController,apiKey)
+    FavouriteScreenGenerate(navController = navController,apiKey)
 }
 
 @Composable
-private fun ScreenGenerate(navController: NavController,apiKey:String){
+fun FavouriteScreenGenerate(navController: NavController,apiKey:String){
 
 }
 
@@ -19,5 +19,5 @@ private fun ScreenGenerate(navController: NavController,apiKey:String){
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun Preview(){
-    ScreenGenerate(navController = NavController(LocalContext.current),"")
+    FavouriteScreenGenerate(navController = NavController(LocalContext.current),"")
 }

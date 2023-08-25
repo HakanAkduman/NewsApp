@@ -19,11 +19,11 @@ interface ArticleRepoInterface {
 
     suspend fun getBreakingNews(
         API_KEY: String
-    ): Resource<NewsResponse>
+    ): Response<NewsResponse>
 
 
     suspend fun searchForNews(
         API_KEY: String,
         searchQuery:String
-    ): Resource<NewsResponse>
+    ): Response<NewsResponse>
 }
