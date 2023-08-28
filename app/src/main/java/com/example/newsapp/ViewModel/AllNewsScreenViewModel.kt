@@ -1,10 +1,13 @@
 package com.example.newsapp.ViewModel
 
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapp.Model.Article
 import com.example.newsapp.Model.NewsResponse
 import com.example.newsapp.Util.Resource
 import com.example.newsapp.Util.Status
@@ -41,11 +44,19 @@ class AllNewsScreenViewModel @Inject constructor(
             _isLoading.value=false
             if (response.isSuccessful){
                 _allNews.value=response.body()!!
+                return@launch
             }else {
                 _isError.value=response.errorBody().toString()
+                return@launch
             }
         }
 
+    }
+    fun saveNew(context:Context,new:Article){
+        viewModelScope.launch {
+            repo.upsert(article = new)
+            Toast.makeText(context,"This new has been saved",Toast.LENGTH_LONG)
+        }
     }
 
 }
