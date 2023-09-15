@@ -28,8 +28,8 @@ object AppModule {
     fun injectRoomDatabase(@ApplicationContext context: Context)= Room.databaseBuilder(
         context = context,
         ArticleDatabase::class.java,
-        "ArticleDatabase"
-    ).build()
+        "article_db.db"
+    ).allowMainThreadQueries().build()
 
     @Singleton
     @Provides

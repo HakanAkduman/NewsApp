@@ -52,7 +52,19 @@ fun AllNewsScreen(navController: NavController,apiKey:String){
 fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel: AllNewsScreenViewModel =hiltViewModel<AllNewsScreenViewModel>()){
 
     viewModel.loadAllNews(apiKey = apiKey)
+    /*
+    val exampleArticle= Article(
 
+            author = "Hakan",
+    content = "haberin tamamı burada",
+    description = "it is description",
+    publishedAt = "200202",
+    source = Source(Any()," "),
+    title = "ŞokHaver",
+    url = "  ",
+    urlToImage = "")
+    viewModel.saveNew(LocalContext.current,exampleArticle)
+*/
     val allNews by viewModel.allNews.observeAsState()
     val isLoading by viewModel.isLoading.observeAsState(false)
     val isError by viewModel.isError.observeAsState("")

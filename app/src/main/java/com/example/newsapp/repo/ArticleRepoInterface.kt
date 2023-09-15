@@ -13,7 +13,7 @@ interface ArticleRepoInterface {
 
     suspend fun insert(article: Article)
 
-    fun getAllArticles(): LiveData<List<Article>>
+    fun getAllArticles(): List<Article>
 
     suspend fun deleteArticle(article: Article)
 

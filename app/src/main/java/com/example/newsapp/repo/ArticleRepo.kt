@@ -19,7 +19,7 @@ class ArticleRepo @Inject constructor(
         articleDao.getArticleDao().insert(article)
     }
 
-    override fun getAllArticles(): LiveData<List<Article>> {
+    override fun getAllArticles(): List<Article> {
         return articleDao.getArticleDao().getAllArticles()
     }
 
