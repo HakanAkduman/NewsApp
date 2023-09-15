@@ -28,7 +28,8 @@ class FavouritenewsScreenViewModel @Inject constructor(
 
     fun loadFavourites(){
         viewModelScope.launch {
-            _allNews.value=repo.getAllArticles().value
+            val value=repo.getAllArticles()
+            _allNews.value=value.value
         }
     }
 

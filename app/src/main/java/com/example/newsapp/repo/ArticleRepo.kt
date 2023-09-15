@@ -6,24 +6,25 @@ import com.example.newsapp.Model.NewsResponse
 import com.example.newsapp.Util.Resource
 import com.example.newsapp.api.ArticleApi
 import com.example.newsapp.database.ArticleDao
+import com.example.newsapp.database.ArticleDatabase
 import retrofit2.Response
 import javax.inject.Inject
 
 
 class ArticleRepo @Inject constructor(
-    private val articleDao: ArticleDao,
+    private val articleDao: ArticleDatabase,
     private val articleApi: ArticleApi
 )  :ArticleRepoInterface {
-    override suspend fun upsert(article: Article){
-        articleDao.upsert(article)
+    override suspend fun insert(article: Article){
+        articleDao.getArticleDao().insert(article)
     }
 
     override fun getAllArticles(): LiveData<List<Article>> {
-        return articleDao.getAllArticles()
+        return articleDao.getArticleDao().getAllArticles()
     }
 
     override suspend fun deleteArticle(article: Article) {
-        articleDao.deleteArticle(article)
+        articleDao.getArticleDao().deleteArticle(article)
     }
 
     override suspend fun getBreakingNews(API_KEY: String): Response<NewsResponse> {

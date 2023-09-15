@@ -11,7 +11,7 @@ import retrofit2.Response
 interface ArticleRepoInterface {
 
 
-    suspend fun upsert(article: Article)
+    suspend fun insert(article: Article)
 
     fun getAllArticles(): LiveData<List<Article>>
 

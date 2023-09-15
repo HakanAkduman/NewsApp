@@ -87,7 +87,7 @@ fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel
 
     Column(Modifier.fillMaxSize()) {
         if (allNews!=null){
-            Text(text = "${allNews!!.totalResults} news have found", color = Color.LightGray, modifier = Modifier.padding(15.dp))
+            Text(text = "${allNews!!.totalResults} news have been found", color = Color.LightGray, modifier = Modifier.padding(15.dp))
             LazyColumn{
                 items(allNews!!.articles){
                     NewItem(article = it){

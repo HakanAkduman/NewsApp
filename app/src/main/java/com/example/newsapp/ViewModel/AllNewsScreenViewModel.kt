@@ -52,11 +52,11 @@ class AllNewsScreenViewModel @Inject constructor(
         }
 
     }
-    fun saveNew(context:Context,new:Article){
+    fun saveNew(context:Context,new:Article)=
         viewModelScope.launch {
-            repo.upsert(article = new)
-            Toast.makeText(context,"This new has been saved",Toast.LENGTH_LONG)
+            repo.insert(article = new)
+            Toast.makeText(context,"This new has been saved",Toast.LENGTH_LONG).show()
         }
-    }
+
 
 }

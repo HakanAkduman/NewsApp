@@ -33,7 +33,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectDao(database: ArticleDatabase)=database.getArticleDao()
+    fun injectDao(@ApplicationContext context: Context)=ArticleDatabase.invoke(context).getArticleDao()
 
     @Singleton
     @Provides
@@ -46,7 +46,7 @@ object AppModule {
     }
     @Singleton
     @Provides
-    fun injectRepo(articleDao: ArticleDao,
+    fun injectRepo(articleDao: ArticleDatabase,
                    articleApi: ArticleApi): ArticleRepo {
         return  ArticleRepo(articleDao, articleApi)
     }
