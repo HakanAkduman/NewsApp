@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -51,20 +52,8 @@ fun AllNewsScreen(navController: NavController,apiKey:String){
 @Composable
 fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel: AllNewsScreenViewModel =hiltViewModel<AllNewsScreenViewModel>()){
 
-    viewModel.loadAllNews(apiKey = apiKey)
-    /*
-    val exampleArticle= Article(
-
-            author = "Hakan",
-    content = "haberin tamamı burada",
-    description = "it is description",
-    publishedAt = "200202",
-    source = Source(Any()," "),
-    title = "ŞokHaver",
-    url = "  ",
-    urlToImage = "")
-    viewModel.saveNew(LocalContext.current,exampleArticle)
-*/
+   // viewModel.loadAllNews(apiKey = apiKey)
+    
     val allNews by viewModel.allNews.observeAsState()
     val isLoading by viewModel.isLoading.observeAsState(false)
     val isError by viewModel.isError.observeAsState("")
@@ -102,7 +91,7 @@ fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel
             Text(text = "${allNews!!.totalResults} news have been found", color = Color.LightGray, modifier = Modifier.padding(15.dp))
             LazyColumn{
                 items(allNews!!.articles){
-                    NewItem(article = it){
+                    NewItem(painter = painterResource(id = R.drawable.favourite_icon),article = it){
                         viewModel.saveNew(context = context,it)
                     }
                 }
@@ -114,7 +103,7 @@ fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel
 
 
 @Composable
-fun NewItem(article:Article,onClick:(Article)->Unit){
+fun NewItem(painter: Painter,article:Article,onClick:(Article)->Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -126,11 +115,11 @@ fun NewItem(article:Article,onClick:(Article)->Unit){
     ) {
         Column(modifier=Modifier.weight(0.4f)) {
             Image(
-                painter = painterResource(id = R.drawable.favourite_icon),
+                painter = painter,
                 contentDescription = "",
                 modifier= Modifier
                     .size(40.dp)
-                    .padding(vertical=3.dp, horizontal = 10.dp)
+                    .padding(vertical = 3.dp, horizontal = 10.dp)
                     .clickable { onClick(article) }
             )
             Image(
@@ -177,17 +166,6 @@ fun NewItem(article:Article,onClick:(Article)->Unit){
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun Preview(){
-    NewItem(article = Article(
-        author = "Hakan",
-        content = "haberin tamamı burada",
-        description = "it is description",
-        publishedAt = "200202",
-        source = Source(Any()," "),
-        title = "ŞokHaver",
-        url = "  ",
-        urlToImage = ""
-    )){
-
-    }
+    
     //ScreenGenerate(navController = NavController(LocalContext.current),"")
 }

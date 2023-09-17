@@ -48,9 +48,10 @@ class RoomDatabaseTest {
             source = Source(Any()," "),
             title = "ŞokHaver",
             url = "  ",
-            urlToImage = "")
+            urlToImage = ""
+        )
         database.getArticleDao().insert(exampleArticle)
-        val list = database.getArticleDao().getAllArticles().getOrAwaitValue()
+        val list = database.getArticleDao().getAllArticles()
 
         assertThat(list).contains(exampleArticle)
 

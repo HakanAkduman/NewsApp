@@ -15,11 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.newsapp.R
 import com.example.newsapp.ViewModel.FavouritenewsScreenViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 
@@ -44,7 +46,7 @@ fun FavouriteScreenGenerate(navController: NavController,apiKey:String,viewModel
         }else{
             LazyColumn{
                 items(allNews!!){
-                    NewItem(article = it){
+                    NewItem(painter = painterResource(id = R.drawable.delete_icon),article = it){
 
                     }
                 }
