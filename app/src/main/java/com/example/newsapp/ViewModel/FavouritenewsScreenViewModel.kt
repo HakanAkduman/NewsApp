@@ -32,6 +32,14 @@ class FavouritenewsScreenViewModel @Inject constructor(
             _allNews.value=value
         }
     }
+    fun deleteNew(new:Article){
+        viewModelScope.launch {
+            repo.deleteArticle(new)
+           val temp= _allNews.value as MutableList
+            temp.remove(new)
+            _allNews.value=temp
+        }
+    }
 
 
 }

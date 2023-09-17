@@ -47,7 +47,7 @@ fun FavouriteScreenGenerate(navController: NavController,apiKey:String,viewModel
             LazyColumn{
                 items(allNews!!){
                     NewItem(painter = painterResource(id = R.drawable.delete_icon),article = it){
-
+                        viewModel.deleteNew(it)
                     }
                 }
             }

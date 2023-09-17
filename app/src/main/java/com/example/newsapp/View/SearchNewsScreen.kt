@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -69,12 +70,24 @@ fun SearchScreenGenerate(navController: NavController,apiKey:String,viewModel: S
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            OutlinedTextField(value = search,onValueChange ={search=it.toLowerCase(Locale.ENGLISH)},modifier=Modifier.weight(1f), label = { Text(text = "Search")})
-            Button(modifier=Modifier.weight(1f),onClick = {
-                if (search.isNotBlank()){
-                    viewModel.searchNews(apiKey,search)
+
+            OutlinedTextField(
+                value = search,
+                onValueChange = { search = it.toLowerCase(Locale.ENGLISH) },
+                modifier = Modifier.weight(3f),
+                label = { Text(text = "Search") },
+                singleLine = true,
+                maxLines = 1
+            )
+           Spacer(modifier = Modifier.size(10.dp))
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    if (search.isNotBlank()) {
+                        viewModel.searchNews(apiKey, search)
+                    }
                 }
-            }) {
+            ) {
                 Text(text = "Search")
             }
         }
