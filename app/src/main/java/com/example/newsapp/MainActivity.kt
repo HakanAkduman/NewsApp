@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,10 +44,13 @@ import com.example.newsapp.ui.theme.NewsAppTheme
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 
+
+lateinit var activity: MainActivity
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        activity=this
         super.onCreate(savedInstanceState)
         setContent {
             NewsAppTheme {
@@ -54,6 +58,12 @@ class MainActivity : ComponentActivity() {
                 MainSchema()
             }
         }
+    }
+}
+
+fun startActivity(intent: Intent){
+    activity.let {
+        it.startActivity(intent)
     }
 }
 

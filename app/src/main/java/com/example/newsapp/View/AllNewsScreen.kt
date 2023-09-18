@@ -1,6 +1,8 @@
 package com.example.newsapp.View
 
+import android.content.Intent
 import android.inputmethodservice.Keyboard
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,11 +39,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.newsapp.MainActivity
 import com.example.newsapp.Model.Article
 import com.example.newsapp.Model.NewsResponse
 import com.example.newsapp.Model.Source
 import com.example.newsapp.R
 import com.example.newsapp.ViewModel.AllNewsScreenViewModel
+import com.example.newsapp.startActivity
 import javax.inject.Inject
 
 @Composable
@@ -52,7 +56,7 @@ fun AllNewsScreen(navController: NavController,apiKey:String){
 @Composable
 fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel: AllNewsScreenViewModel =hiltViewModel<AllNewsScreenViewModel>()){
 
-   // viewModel.loadAllNews(apiKey = apiKey)
+   viewModel.loadAllNews(apiKey = apiKey)
     
     val allNews by viewModel.allNews.observeAsState()
     val isLoading by viewModel.isLoading.observeAsState(false)
@@ -104,6 +108,10 @@ fun AllNewsScreenGenerate  (navController: NavController,apiKey:String,viewModel
 
 @Composable
 fun NewItem(painter: Painter,article:Article,onClick:(Article)->Unit){
+
+    val intent=Intent(Intent.ACTION_VIEW)
+    intent.data= Uri.parse(article.url?:"")
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -112,6 +120,9 @@ fun NewItem(painter: Painter,article:Article,onClick:(Article)->Unit){
                 Color.Gray,
                 RoundedCornerShape(10.dp)
             )
+            .clickable {
+                startActivity(intent)
+            }
     ) {
         Column(modifier=Modifier.weight(0.4f)) {
             Image(
