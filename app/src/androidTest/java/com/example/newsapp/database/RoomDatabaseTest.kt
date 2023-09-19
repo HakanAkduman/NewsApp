@@ -1,66 +1,81 @@
 package com.example.newsapp.database
 
-import android.util.Log
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import android.content.Context
 import androidx.room.Room
-import androidx.test.annotation.ExperimentalTestApi
-import com.google.common.truth.Truth.assertThat
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.newsapp.Model.Article
 import com.example.newsapp.Model.Source
-import com.example.newsapp.getOrAwaitValue
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
 
 
+@RunWith(AndroidJUnit4::class)
 @SmallTest
-@ExperimentalCoroutinesApi
 class RoomDatabaseTest {
-    @get:Rule
-    var instantTaskExecutorRule=InstantTaskExecutorRule()
-    private lateinit var database:ArticleDatabase
+
+
+    private lateinit var database: ArticleDatabase
+    private lateinit var dao: ArticleDao
 
     @Before
-    fun setup(){
-        database= Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),ArticleDatabase::class.java
-        ).allowMainThreadQueries().build()
+    fun setup() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        database = Room.inMemoryDatabaseBuilder(context, ArticleDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
 
+        dao = database.getArticleDao()
     }
 
     @After
-    fun teardown(){
+    @Throws(IOException::class)
+    fun teardown() {
         database.close()
     }
 
     @Test
-    fun insertArticleTesting()= runBlocking{
-        val exampleArticle= Article(
-            author = "Hakan",
-            content = "haberin tamamı burada",
-            description = "it is description",
-            publishedAt = "200202",
-            source = Source(Any()," "),
-            title = "ŞokHaver",
-            url = "  ",
-            urlToImage = ""
-        )
-        database.getArticleDao().insert(exampleArticle)
-        val list = database.getArticleDao().getAllArticles()
+    @Throws(Exception::class)
+    fun insertArticleTesting(){
+        runBlocking {
+            val exampleArticle = Article(
+                author = "Hakan",
+                content = "haberin tamamı burada",
+                description = "it is description",
+                publishedAt = "200202",
+                source = Source("", ""),
+                title = "ŞokHaver",
+                url = "",
+                urlToImage = ""
+            )
 
-        assertThat(list).contains(exampleArticle)
+            dao.insert(exampleArticle)
 
 
 
+            val latch = CountDownLatch(1)
+            val job = async(Dispatchers.IO) {
+                val list = dao.getAllArticles()
+
+                assertThat(list).contains(exampleArticle)
+            }
+            withContext(Dispatchers.IO) {
+                latch.await()
+            }
+            job.cancelAndJoin()
+
+
+        }
     }
-
-
-
-
-
 }
