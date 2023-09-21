@@ -10,4 +10,4 @@ Kotlin Compose allowed me to design a modern and visually appealing user interfa
 
 Feel free to check out the app and let me know your thoughts! 🌟👇
 
-![newsapp1](https://github.com/HakanAkduman/NewsApp/assets/118764511/49ad0372-9dd4-4c9d-a251-043aa4697221)
+![newsapp1](https://github.com/HakanAkduman/NewsApp/assets/118764511/e04ea97d-d9ca-4249-9ae2-693c9e5eb28e)
