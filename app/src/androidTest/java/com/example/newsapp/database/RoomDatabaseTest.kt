@@ -61,19 +61,9 @@ class RoomDatabaseTest {
             )
 
             dao.insert(exampleArticle)
+            val list = dao.getAllArticles()
+            assertThat(list).contains(exampleArticle)
 
-
-
-            val latch = CountDownLatch(1)
-            val job = async(Dispatchers.IO) {
-                val list = dao.getAllArticles()
-
-                assertThat(list).contains(exampleArticle)
-            }
-            withContext(Dispatchers.IO) {
-                latch.await()
-            }
-            job.cancelAndJoin()
 
 
         }
